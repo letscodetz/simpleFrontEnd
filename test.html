@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Simple HTML</title>
+  </head>
+  <body>
+    <h1>These are Our uses</h1>
+    <ul id="list">
+      <!-- will be populated dynamically-->
+    </ul>
+    <script>
+      fetch("http://localhost:8080/")
+        .then(res => res.json())
+        .then(nationalParks => {
+            // access the list vy id from html
+          let list = document.getElementById("list");
+          
+          for (let nationalPark of nationalParks) {
+            let li = document.createElement("li");
+
+            let listItemContent = `
+                    <h3>Name: ${nationalPark.name}</h3>
+                    <p>Description: ${nationalPark.description}</p>
+            `;
+
+            li.innerHTML = listItemContent;
+            list.append(li);
+          }
+        });
+    </script>
+  </body>
+</html>
